@@ -1,7 +1,10 @@
+/** Akachukwu Obi; 2018; mailto:obiakachukwu@gmail.com **/
+/** This is my poor attempt at styling the Project Euler page. **/
+
 html {
     background: #e6e9e9;
     background-image: linear-gradient(270deg, rgb(230, 233, 233) 0%, rgb(216, 221, 221) 100%);
-    font-family: Ubuntu, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: Ubuntu, Helvetica, Arial, sans-serif;
     font-size: 16px;
 }
 
@@ -22,7 +25,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  text-align: center;
+    text-align: center;
 }
 
 h2 {
@@ -32,7 +35,6 @@ h2 {
 a {
     color: #0083e8;
     text-decoration: none;
-    target: "_blank";
 }
 
 a:hover {
@@ -62,3 +64,36 @@ table, th, td {
     border-spacing: 2px;
     border-collapse: collapse;
 }
+
+tr {
+    text-align: center;
+}
+
+#clockdiv{
+		color: #fff;
+		display: inline-block;
+		font-weight: 100;
+		text-align: center;
+		font-size: 30px;
+	}
+	
+	#clockdiv > div{
+		padding: 10px;
+		border-radius: 3px;
+		/** background: #00BF96; **/
+		background:#fff;
+		display: inline-block;
+	}
+	
+	#clockdiv div > span{
+		padding: 15px;
+		border-radius: 3px;
+		background: #0083e8;
+		display: inline-block;
+	}
+	
+	.smalltext{
+		padding-top: 5px;
+		font-size: 16px;
+        color: #222;
+	}
