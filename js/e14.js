@@ -20,3 +20,50 @@ Retrieved 28 June 2018 from https://projecteuler.net/problem=14
 
 **/
 
+function phi_function(n) {
+    'use strict';
+	var list = [n];
+	do {
+        if (n % 2 === 0) {
+            n = n / 2;
+        } else {
+            n = 3 * n + 1;
+        }
+        list.push(n);
+    } while (n > 1);
+    // console.log (list.length);
+    return list.length;
+    // return "Set of " + list.length + " numbers: " + list;
+}
+// test
+// phi_function(45);
+
+function longestChainUnder(m) {
+    "use strict";
+    var i, len, maxLen, result;
+    maxLen = 0;
+    
+    // based on phi_function, can I assume that the number with the longest chain is odd?
+    // not really it turns out but mostly safe for numbers 10^6
+    
+    for (i = m / 2 + 1; i < m; i += 2) { 
+        len = phi_function(i);
+        if (len > maxLen) {
+            maxLen = len;
+            result = i;
+        }
+    }
+    return result;
+}
+// test
+// longestChainUnder(10); // 9
+longestChainUnder(1000000); // 837799
+// 1000000 took two seconds or so but worked. There's surely a way to improve this algorithm
+
+// Here are some useful optimizations:
+// since if n is even, n -> n/2, phi_function(2n) = phi_function(n) + 1
+// also if n is even, phi_function(2n) > phi_function(n) so we don't even need to bother with the first half of the limit
+// If n is odd, 3n + 1 is even, so we can save even more time by storing phi_function(n) as 2 + phi_function((3n + 1) / 2)
+// also it turns out that assuming odd phis are longer almost works, but not really.
+
+// so let's focus on length alone

@@ -1,8 +1,30 @@
-// Akachukwu Obi
+/* Akachukwu Obi, 2017
 
-// Project Euler #1. Question retrieved 24/May/17 from https://projecteuler.net/problem=1
-// If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
-// Find the sum of all the multiples of 3 or 5 below 1000.
+Project Euler #1 - Sum of all multiples of 3 or 5 below 1000.
+
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. 
+The sum of these multiples is 23.
+
+Find the sum of all the multiples of 3 or 5 below 1000.
+
+Retrieved 24/May/17 from https://projecteuler.net/problem=1
+*/
+
+/* oooooooooooo     MAIN SOLUTION     oooooooooooo */
+
+var Multi35 = function (count) {
+	"use strict";
+	var m3, m5, m15; // initialize variables
+	count = count - 1; // comment out this code to include count, i.e, sum less than or equal to count
+	m3 = 3 * 0.5 * Math.floor(count / 3) * (Math.floor(count / 3) + 1); // sum of multiples of 3
+	m5 = 5 * 0.5 * Math.floor(count / 5) * (Math.floor(count / 5) + 1); // sum of multiples of 5
+	m15 = 15 * 0.5 * Math.floor(count / 15) * (Math.floor(count / 15) + 1); // numbers counted twice, multiples of both 3 and 5
+	return m3 + m5 - m15;
+};
+// test
+Multi35(1000);
+
+/* oooooooooooo     BUILD UP     oooooooooooo */
 
 // The multi35 function generates the set of multiples of 3 or 5 within a given range (not inclusive), then sums up all the members of that set. The multi35 function works for any range of integers
 // ...
@@ -26,7 +48,9 @@ multi35(1, 12);
 // --> [3,5,6,9,10], 33
 // > multi35(1,1000) --> [set of 466 elements], 233168
 
-// While multi35 runs a hard iterative algorithm to return both elements of the set of multiples of 3 and 5, and the sum of these elements. However, the sum of n natural numbers is the geometric sum S_n = n*(n+1)/2 or (n^2 + n)/2, which could be modified to return the sum of multiples of k \in Z within n natural numbers.
+// multi35 runs a long iterative algorithm to return the set of multiples of 3 and 5, and the sum of these elements. 
+// However, the sum of n natural numbers is the geometric sum S_n = n*(n+1)/2 or (n^2 + n)/2, 
+// which could be modified to return the sum of multiples of any integer within n natural numbers.
 
 // Given this algorithm, sum of the first n natural numbers can be written thus
 var multin = function (count) {
@@ -36,7 +60,6 @@ var multin = function (count) {
 // test
 multin(10);
 // --> 55
-// > multin(4) --> 10
 
 // or
 var multin2 = function (count) {
@@ -46,7 +69,6 @@ var multin2 = function (count) {
 // test
 multin2(10);
 // --> 55
-// > multin2(4) --> 10
 
 // To find the sum of the first n numbers divisible by k integers, you just multiply the output by k. 
 var multik = function (count, multipleof) {
@@ -69,7 +91,7 @@ multiK(10, 3);
 // > multik(12,3) --> 30
 
 // I can build on this code to find the sum of multiples of 3 and 5 less than 1000.
-var Multi35 = function (count) {
+var M35 = function (count) {
 	"use strict";
 	var m3, m5, m15; // initialize variables
 	count = count - 1; // comment out this code to include count, i.e, sum less than or equal to count
@@ -79,15 +101,10 @@ var Multi35 = function (count) {
 	return m3 + m5 - m15;
 };
 // test
-Multi35(1000);
+M35(1000);
 // --> 233168
 
-// the difference in speed between this Multi35 function and the first multi35 function above is barely noticable, but ultimately, Multi35 is superior since it performs 3 or 4 calculations total, while multi35 goes through about 1000 loops.
+// the difference in speed between this Multi35 function and the first multi35 function above is barely noticable, 
+// but ultimately, Multi35 is superior since it performs about 4 calculations total, while multi35 goes through about 1000 loops.
 
-// here's some code to test performance
-var t0 = performance.now();
-var result = Multi35(1000);
-var t1 = performance.now();
-console.log('Took', (t1 - t0).toFixed(4), 'milliseconds to generate:', result);
-
-// Multi35, while four times faster than multi35, was only 0.3 milliseconds faster.
+// Multi35(1000), while four times faster than multi35(1, 1000), was only 0.3 milliseconds faster.

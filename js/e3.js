@@ -44,7 +44,8 @@ var getPrimeFactors = function (n) {
             }
         }
     }
-    return primeFactors;
+    // return primeFactors;
+    return primeFactors[primeFactors.length - 1];
 };
 // test
 getPrimeFactors(600851475143);
@@ -64,7 +65,7 @@ function find_highest_prime_factor(n) {
             return i;
         }
     }
-    return 1;
+    return 1; // if all else fails, return 1
 }
 
 var target = 600851475143;

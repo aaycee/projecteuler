@@ -67,13 +67,14 @@ Let's begin with the following definitions and proven assumptions:
     Odd numbers are in the form of 2k + 1 or num (mod 2) === 1
 3. All primes greater than 3 are in the form of 6k +/- 1
 4. Any number n can have only one primefactor greater than Math.sqrt(n)
-    This means that if there is no primefactor less than sqrt(n), then n must be prime
+    This means that if there is no prime factor less than sqrt(n), then n must be prime
 
 Using this idea, we can create a general isPrime function, then run a loop like above. We're essentially replacing my getFactors().length === 2 by the isPrime seive.
 
 */
 
 function isPrime(n) {
+    "use strict";
     if (n === 1) {
         return false;
     } else if (n < 4) {
@@ -87,12 +88,12 @@ function isPrime(n) {
         f = 5;
         r = Math.floor(Math.sqrt(n));
         while (f <= r) {
-            if (n % f === 0 || n % f+2 === 0) {
+            if (n % f === 0 || n % (f  + 2) === 0) {
                 return false;
             }
-            f += 6; // this is the 6k +/- 1 part
+            f += 6; // all primes greater than 3 are in the form of 6k +/- 1 where k is an integer
         }
-        return true;
+        return true; // if there is no prime factor less than sqrt(n), then n must be prime
     }
 }
 // test
@@ -101,6 +102,7 @@ function isPrime(n) {
 
 // now for the loop part
 function lastPrime(max) {
+    "use strict";
     var primeSet, count;
     primeSet = [2];
     for (count = 1; primeSet.length < max; count += 2) {
@@ -114,3 +116,5 @@ function lastPrime(max) {
 // test
 lastPrime(10001);
 // doesn't work. It's too late at night jor, lemme watch some World Cup highlights
+
+// after a few days, I realized n % f + 2 is the problem, should be n % (f + 2). Damn this gave me some headache.

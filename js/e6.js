@@ -15,6 +15,24 @@ hundred natural numbers and the square of the sum.
 Retrieved June 25, 2018 from https://projecteuler.net/problem=6
 **/
 
+/* oooooooooooo     MAIN SOLUTION     oooooooooooo */
+function diffOfSumOfSquares(max) {
+    var sum, sumOfSquares;
+    sum = max * (max + 1) / 2; // sum of n natural numbers is 
+                               //  n(n+1)/2
+    sumOfSquares = (max / 6) * (2 * max + 1) * (max + 1);
+    return sum * sum - sumOfSquares;
+}
+// test
+diffOfSumOfSquares(100);
+// --> 25164150
+
+// Voila! No for loops, no problems!
+
+
+
+/* oooooooooooo     BUILD UP     oooooooooooo */
+
 // rudimentary iteration method for any min, max range
 function diffOfSumSquares(min, max) {
     var i, sum, sumOfSquares;
@@ -66,7 +84,7 @@ function diffSumSq(max) {
     var sum, sumOfSquares;
     sum = max * (max + 1) / 2; // sum of n natural numbers is 
                                //  n(n+1)/2
-    sumOfSquares = (max / 6) * (2 * max + 1) * (max + 1) ;
+    sumOfSquares = (max / 6) * (2 * max + 1) * (max + 1);
     return sum * sum - sumOfSquares;
 }
 // test

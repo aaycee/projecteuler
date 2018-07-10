@@ -29,14 +29,15 @@ First try. Doesn't work but I'll still try to make it work
 */
 
 // code inspired by joezack.com
-function gcd(a, b) { // find the greatest common divisor between two numbers. It doesn't matter the order
+function gcd(a, b) { 
+// find the greatest common divisor between two numbers. It doesn't matter the order
     var x, y, result;
     x = a;
     y = b;
     while (y !== 0) {
         result = x % y;
         x = y; // reassign values
-        y = result;
+        y = result; // setting y = result ensures we eventually get x % y = 0
     }
     return x;
 }

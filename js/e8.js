@@ -75,10 +75,11 @@ function maxAdjProduct(window) {
         }
     }
     // console.log("the adjacent digits are: " + bigNum.slice(whereAt, whereAt + window) + ", and their product is: " + maxProduct);
-    return maxProduct;
+    return maxProduct + ": from " + bigNum.slice(whereAt, whereAt + window);
+    // return maxProduct;
 }
 // test
 maxAdjProduct(13);
-// --> 23514624000
+// --> 23514624000: from 5576689664895
 
 // code works well, but in theory, you could introduce a statement (if statement mayber) to skip a count where the number '0' is part of the string. Not sure if it'd make much difference in speed though.
