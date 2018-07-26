@@ -37,7 +37,7 @@ function gcd(a, b) {
     while (y !== 0) {
         result = x % y;
         x = y; // reassign values
-        y = result; // setting y = result ensures we eventually get x % y = 0
+        y = result; // setting y = result ensures we eventually get x % y === 0
     }
     return x;
 }

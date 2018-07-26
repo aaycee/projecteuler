@@ -145,6 +145,34 @@ function evenFiboSum(limit) {
 evenFiboSum(4000000);
 // --> 4613732
 
+// same idea but applying a generator function
+function eFs(limit) {
+    
+    function* fibonacci() { // a generator function
+        let [prev, curr] = [0, 1];
+        while (true) {
+            [prev, curr] = [curr, prev + curr];
+            yield curr;
+        }
+    }
+    
+    var sum = 0;
+    
+    for (let n of fibonacci()) {
+        // sum even sequence
+        if (n % 2 === 0) {
+            sum += n;
+        }
+        // truncate the sequence at (limit)
+        if (n > limit) {
+            break; // closes iterator
+        }
+    }
+    
+    return sum;
+}
+// test
+eFs(4000000); // 4613732
 
 /* Idea 2: Be smarter
 

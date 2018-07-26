@@ -1,18 +1,17 @@
 /* Akachukwu Obi, 2017
-
-Project Euler #1 - Sum of all multiples of 3 or 5 below 1000.
-
-If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. 
-The sum of these multiples is 23.
-
-Find the sum of all the multiples of 3 or 5 below 1000.
-
-Retrieved 24/May/17 from https://projecteuler.net/problem=1
-*/
+ * Project Euler #1 - Sum of all multiples of 3 or 5 below 1000.
+ * 
+ * If we list all the natural numbers below 10 that are multiples 
+ * of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+ * 
+ * Find the sum of all the multiples of 3 or 5 below 1000.
+ * Retrieved 24/May/17 from https://projecteuler.net/problem=1
+ */
 
 /* oooooooooooo     MAIN SOLUTION     oooooooooooo */
 
-var Multi35 = function (count) {
+var sumOfMultiplesOf3and5Below = function (count) {
+    // calculate the sum of multiples of 3 and 5 below 1000
 	"use strict";
 	var m3, m5, m15; // initialize variables
 	count = count - 1; // comment out this code to include count, i.e, sum less than or equal to count
@@ -22,7 +21,9 @@ var Multi35 = function (count) {
 	return m3 + m5 - m15;
 };
 // test
-Multi35(1000);
+sumOfMultiplesOf3and5Below(1000);
+
+
 
 /* oooooooooooo     BUILD UP     oooooooooooo */
 
@@ -76,22 +77,25 @@ var multik = function (count, multipleof) {
     return multipleof * 0.5 * count * (count + 1);
 };
 // test
-multik(3, 2);
-// --> 12
-// > multik(2,3) --> 9
+multik(3, 2); // 12
+// multik(2,3) // 9
 
-// However, to find the sum of multiples of k within the first n natural numbers, you would focus on the count of numbers divisible by k within those n natural numbers. For example, there are exactly Math.floor(1000/3) numbers divisible by 3 between 1 and 1000. Therefore the sum of multiples of 3 between 1 and 1000 will be 3*333*(333+1)/2.
+/* However, to find the sum of multiples of k within the first n natural numbers,
+ * you would focus on the count of numbers divisible by k within those 
+ * n natural numbers. For example, there are exactly Math.floor(1000/3) numbers 
+ * divisible by 3 between 1 and 1000. Therefore the sum of multiples of 3 
+ * between 1 and 1000 will be 3*333*(333+1)/2.
+*/
 var multiK = function (count, multipleof) {
     "use strict";
     return multipleof * 0.5 * Math.floor(count / multipleof) * (Math.floor(count / multipleof) + 1);
 };
 // test
-multiK(10, 3);
-// --> 18
-// > multik(12,3) --> 30
+multiK(10, 3); // 18
+// multik(12,3) // 30
 
 // I can build on this code to find the sum of multiples of 3 and 5 less than 1000.
-var M35 = function (count) {
+var m35 = function (count) {
 	"use strict";
 	var m3, m5, m15; // initialize variables
 	count = count - 1; // comment out this code to include count, i.e, sum less than or equal to count
@@ -101,10 +105,10 @@ var M35 = function (count) {
 	return m3 + m5 - m15;
 };
 // test
-M35(1000);
+m35(1000);
 // --> 233168
 
-// the difference in speed between this Multi35 function and the first multi35 function above is barely noticable, 
-// but ultimately, Multi35 is superior since it performs about 4 calculations total, while multi35 goes through about 1000 loops.
-
-// Multi35(1000), while four times faster than multi35(1, 1000), was only 0.3 milliseconds faster.
+// for our calculation, the difference in speed between Multi35() and 
+// the first multi35 function above is barely noticable, 
+// but ultimately, Multi35 is superior since it performs about 4 calculations
+// total, while multi35 goes through about 1000 loops.

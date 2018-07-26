@@ -49,7 +49,7 @@ var getPrimeFactors = function (n) {
 };
 // test
 getPrimeFactors(600851475143);
-// --> [71, 839, 1471, 6857]
+// 6857
 // this program works, quickly too. But there must be a way that skips the computing load of finding initial factors then seiving them for primality using the factors algorithm
 
 

@@ -45,7 +45,8 @@ var digitArrayAdd = function(digits1, digits2) {
 };
 
 /**
- * Rebalances the digit array.  This will shift any numbers larger than 9 to higher digits.  This will only consider the provided index, and only rebalance higher indexes when there is an overflow.
+ * Rebalances the digit array.  This will shift any numbers larger than 9 to higher digits.  
+ This will only consider the provided index, and only rebalance higher indexes when there is an overflow.
  *
  * @param digits The digit array to balance
  * @param index The index to balance

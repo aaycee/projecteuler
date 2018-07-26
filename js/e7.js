@@ -106,7 +106,7 @@ function lastPrime(max) {
     var primeSet, count;
     primeSet = [2];
     for (count = 1; primeSet.length < max; count += 2) {
-        if (isPrime(count) === true) {
+        if (isPrime(count)) {
             primeSet.push(count);
         }
     }

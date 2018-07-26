@@ -95,7 +95,7 @@ function gridMultiple(window) {
         row = arr[i];
         for (j = 0; j < row.length; j += 1) {
             
-            // row sum: left-to-right sum
+            // row sum: left-to-right
             if (j < row.length - window) {
                 product = 1;
                 k = 0;
@@ -155,4 +155,4 @@ function gridMultiple(window) {
     return maxProduct;
 }
 // test
-gridMultiple(4);
+gridMultiple(4); // 70600674

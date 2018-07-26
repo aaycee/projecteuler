@@ -1,5 +1,6 @@
-/** Akachukwu Obi; 2018; mailto:obiakachukwu@gmail.com **/
-/** This is my poor attempt at styling the Project Euler page. **/
+/* Akachukwu Obi, 2018
+ * My poor attempt at styling the Project Euler page. 
+ */
 
 html {
     background: #e6e9e9;
@@ -43,6 +44,13 @@ a:hover {
 
 b, strong {
     font-weight: 600;
+}
+
+code {
+    background-color: #eee;
+    border-radius: 3px;
+    font-family: courier, monospace;
+    padding: 0 3px;
 }
 
 samp {
