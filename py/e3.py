@@ -9,40 +9,38 @@
 
 import math
 
-def getFactors(number):
+def getFactors(number=128):
 	factors = []
 	possibleFactor = 1
-	sqrt = math.sqrt(number)
-	while possibleFactor <= sqrt: # we only need to check to the square root
+	limit = math.sqrt(number)
+	while possibleFactor <= limit: # we only need to check to the square root
 		if number % possibleFactor == 0: # if it is a factor
 			factors.append(possibleFactor) # add it to factors
-
-			otherPossibleFactor = number // possibleFactor # guaranteed to be a whole integer
+			otherPossibleFactor = number // possibleFactor 
 			if otherPossibleFactor != possibleFactor:
 				factors.append(otherPossibleFactor)
-
 		possibleFactor += 1
-
 	return sorted(factors)
 # test
-# print(getFactors(8))
+# print(getFactors(128))
 
-def getPrimeFactors(n):
-	a = getFactors(n)
-	if len(a) == 2:
-		primeFactors = n;
-	else:
-		primeFactors = [];
-		for i in a: # loop through every element in a
-			if len(getFactors(i)) == 2: # every prime number has exactly 2 factors only
-				primeFactors.append(i)
-
-	# return primeFactors
-	return primeFactors[-1] # return largest prime factor
-
+def getPrimeFactors(number=128):
+    factors = getFactors(number) # returns a set of factors
+    primeFactors = []
+    if len(factors) == 2:
+        primeFactors = [number]
+    else:
+        if 2 in factors:
+            primeFactors += [2]
+        for i in factors: 
+            if (i % 2 != 0) and len(getFactors(i)) == 2:
+                primeFactors.append(i)
+    
+    # return primeFactors # returns set of prime factors
+    return primeFactors[-1] # return largest prime factor
 # test
-# print(getPrimeFactors(600851475143)) # 6857
-
+print(getPrimeFactors()) # 2
+print(getPrimeFactors(600851475143)) # 6857
 
 # Solution 2: using a different primality test
 
