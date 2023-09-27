@@ -25,20 +25,6 @@ evenFibonacciSum(4000000);
 def euler2(n):
     """
     sum of even Fibonacci numbers less than n (n = 4000000)
-        using lessons from euler1
-
-    """
-    fibSet = [1,2]
-    while fibSet[-1] < n:
-        fibSet += [fibSet[-1] + fibSet[-2]]
-    # print(fibSet)
-    return (sum([i for i in fibSet if i % 2 == 0])) # sum of even-valued terms
-  
-print(euler2(4000000)) # solution is 4613732
-
-def euler2(n):
-    """
-    sum of even Fibonacci numbers less than n (n = 4000000)
 
     """
     fibSet = [1,2] # initiate the Fibonacci set
@@ -53,9 +39,23 @@ def euler2(n):
 print(euler2(4000000)) # solution is 4613732
 
 
-def evenFibonacciSum(limit):
+def euler2(n):
     """
     sum of even Fibonacci numbers less than n (n = 4000000)
+        using lessons from euler1
+
+    """
+    fibSet = [1,2]
+    while fibSet[-1] < n:
+        fibSet += [fibSet[-1] + fibSet[-2]]
+    # print(fibSet)
+    return (sum([i for i in fibSet if i % 2 == 0])) # sum of even-valued terms
+  
+print(euler2(4000000)) # solution is 4613732
+
+def evenFibonacciSum(limit = 4000000):
+    """
+    sum of even Fibonacci numbers less than limit
         for a more elegant solution, consider the fibonacci sequence
         1,1,2,3,5,8,13,21,34...
         a,b,c,a,b,c,a,b,c...
@@ -77,4 +77,25 @@ def evenFibonacciSum(limit):
     return total
 
 # test
-print(evenFibonacciSum(4000000)) # 4613732
+print(evenFibonacciSum()) # 4613732
+
+def evenFibSum(limit = 4000000):
+        """
+        sum of even Fibonacci numbers less than limit
+            considers that in the even set F = 2, 8, 34, ... n-1, n
+            F(n) = F(n-1) * phi^3
+        
+        """
+        import math
+        phi = (1+ math.sqrt(5))/2 # golden ratio
+        evenValue = 2
+        total = 0
+        
+        while evenValue < limit:
+            total += evenValue
+            evenValue = round(evenValue * (phi**3)) # round to nearest integer
+            
+        return total
+    
+# test
+print(evenFibSum()) # 4613732
