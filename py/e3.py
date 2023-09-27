@@ -13,17 +13,17 @@ def getFactors(number):
 	factors = []
 	possibleFactor = 1
 	sqrt = math.sqrt(number)
-	while possibleFactor <= sqrt:
+	while possibleFactor <= sqrt: # we only need to check to the square root
 		if number % possibleFactor == 0: # if it is a factor
 			factors.append(possibleFactor) # add it to factors
 
-			otherPossibleFactor = number / possibleFactor # guaranteed to be a whole integer
+			otherPossibleFactor = number // possibleFactor # guaranteed to be a whole integer
 			if otherPossibleFactor != possibleFactor:
 				factors.append(otherPossibleFactor)
 
 		possibleFactor += 1
 
-	return factors # this set is unsorted
+	return sorted(factors)
 # test
 # print(getFactors(8))
 
@@ -79,11 +79,11 @@ def getPrimeFac(number):
 		return primeFactors[-1] # return largest prime factor
 
 # print(getPrimeFac(101)) # 101
-# print(getPrimeFac(600851475143)) # 6857
+print(getPrimeFac(600851475143)) # 6857
 
 # Solution 3
 
-"""
+""" .js code:
 function find_highest_prime_factor(n) {
     var max, i;
     max = Math.round(Math.sqrt(n));
@@ -101,11 +101,19 @@ print(find_highest_prime_factor(target));
 """
 
 def find_highest_prime_factor(n):
-	max = int(math.ceil(math.sqrt(n))) # making this an integer for range sake
-	for i in range(max, 1, -1): # this is how to tell python to count backwards
-		if (n % i == 0) and (find_highest_prime_factor(i) == 1):
-			return i
-	return 1
+    
+    """
+    largest prime factor of n (n = 600851475143)
+    
+    """
+    
+    import math
+    max = int(math.sqrt(n)) # making this an integer for range sake
+    
+    for i in range(max, 1, -1): # count backwards
+        if (n % i == 0) and (find_highest_prime_factor(i) == 1):
+            return i # first prime factor hit is guaranteed to be the largest
+    return 1
 
 print(find_highest_prime_factor(600851475143)) # 6857
 

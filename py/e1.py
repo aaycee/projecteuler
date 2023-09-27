@@ -15,18 +15,19 @@ print(Multi35(1000)) # solution 233168
 # another strategy is to make multiplication formula it's own function
 
 def euler1(n=1000, a=3, b = 5):
-    """
-    sum of multiples of a or b in range(1,n)
-        euler1() runs with the default values n=1000, a=3, b = 5
-        otherwise can accept up to three integer inputs
-
-    """
-    n = n-1 # comment out to include upper range
+        """
+        sum of multiples of a or b in range(1,n)
+            euler1() runs with the default values n=1000, a=3, b = 5
+            otherwise can accept integer inputs
     
-    def sumMultiplesOfNum(i):
-        return i*0.5*(n//i)*((n//i) + 1)
-    
-    return int(sumMultiplesOfNum(a) + sumMultiplesOfNum(b) - sumMultiplesOfNum(a*b))
+        """
+        n = n-1 # comment out to include upper range
+        
+        def sumMultiplesOfNum(i):
+            p = n//i # lower bound integer of n/i
+            return i*0.5*p*(p + 1) # formula for integer multiples
+        
+        return int(sumMultiplesOfNum(a) + sumMultiplesOfNum(b) - sumMultiplesOfNum(a*b))
 
 # tests
 print(euler1()) # solution 233168
