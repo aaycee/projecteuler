@@ -3,9 +3,11 @@
 
 # see .js file for build up
 
-def diffOfSumOfSquares(max):
-	sumOfNumbers = max * (max + 1) / 2 # sum of n natural numbers is n(n + 1)/2
-	sumOfSquares = (max / 6.0) * (2 * max + 1) * (max + 1) # I used 6.0 to avoid getting a math.floor situation in puthon2.7
-	return sumOfNumbers * sumOfNumbers - sumOfSquares
+def diffSums(limit = 100):
+    """finds the difference between sum of squares 
+    and square of sums of natural numbers"""
+    sums = limit * (limit + 1) // 2
+    sumOfSquares = limit * (limit + 1) * (2*limit + 1) // 6
+    return sums**2 - sumOfSquares
 
-print(diffOfSumOfSquares(100)) #25164150.0
+print(diffSums()) # 25164150

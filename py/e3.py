@@ -4,8 +4,7 @@
 
 # I have 3 possible solutions
 
-# Sol 1: brute force naive code that first computes the factors of the number
-# then seives those factors for primality
+# Sol 1: computes the factors of the number then seives those factors for primality
 
 import math
 
@@ -78,3 +77,32 @@ def getPrimeFac(number):
 
 # print(getPrimeFac(101)) # 101
 print(getPrimeFac(600851475143)) # 6857
+
+import math
+
+def primeFactors(number = 600851475143):
+    """
+    takes a number and returns its prime factorization
+    """
+    factorSet = []
+    
+    # while even ...
+    while number % 2 == 0:
+        factorSet.append(2)
+        number = number // 2
+         
+    # while odd ...
+    for i in range(3, int(math.sqrt(number))+1 , 2):
+        while number % i== 0:
+            factorSet.append(i),
+            number = number // i
+             
+    # if number remains prime > 2 after all, print it
+    if number > 2:
+        factorSet.append(number)
+    
+    return factorSet # returns prime factorization    
+# test
+prime_factors = primeFactors()
+print(primes_factors) # [71, 839, 1471, 6857]
+print(primes_factors[-1]) # 6857 

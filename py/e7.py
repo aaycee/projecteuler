@@ -3,35 +3,56 @@
 
 # see .js files for build up
 
-import math
+from math import sqrt
 
-def isPrime(n):
-	if n == 1:
-		return False
-	elif n < 4:
-		return True # 2 and 3 are prime
-	elif (n % 2 == 0) or (n % 3 == 0): # a single '|' or 'or' could represent 'or'
-		return False
-	elif n < 9: # just applies to 7 at this point
-		return True
-	else:
-		f = 5
-		r = math.floor(math.sqrt(n))
-		while f <= r:
-			if (n % f == 0) or (n % (f + 2) == 0):
-				return False
-			f += 6 # all primes greater than 3 are in the form of 6k +/- 1 where k is an integer
+def isPrime(number):
+    """determines if number is prime"""
+    if number == 1:
+        return False
+    elif number < 4:
+        return True 
+    elif (number % 2 == 0) or (number % 3 == 0):
+        return False
+    elif number < 9:
+        return True
+    else:
+        factor = 5
+        limit = int(sqrt(number))
+        while factor <= limit:
+            if (number % factor == 0) or (number % (factor + 2) == 0):
+                return False
+            factor += 6
+        return True # if no prime factor, n must be prime
 
-		return True # if there is no prime factor less than sqrt(n), then n must be prime
+def nthPrime(n = 10001):
+    """finds the nth prime"""
+    primeSet = [2]
+    count = 1
+    while len(primeSet) < n:
+        count += 2
+        if isPrime(count):
+            primeSet.append(count)
+    return primeSet[-1]
 
-def nthPrime(max):
-	primeSet = [2]
-	count = 1
-	while len(primeSet) < max:
-		count += 2
-		if (isPrime(count)):
-			primeSet.append(count)
+print(nthPrime()) # 104743
 
-	return primeSet[-1]
+def nthPrimeSieve(n = 10001):
+    """uses a sieve to find the nth prime"""
+    primes = [2]
+    num = 3
 
-print(nthPrime(10001)) # 104743
+    while len(primes) < n:
+        is_prime = True
+        for p in primes:
+            if p * p > num:
+                break
+            if num % p == 0:
+                is_prime = False
+                break
+        if is_prime:
+            primes.append(num)
+        num += 2
+
+    return primes[-1]
+
+print(nthPrimeSieve()) # 104743
