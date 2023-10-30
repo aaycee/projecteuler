@@ -50,24 +50,3 @@ var getPrimeFactors = function (n) {
 // test
 getPrimeFactors(600851475143);
 // 6857
-// this program works, quickly too. But there must be a way that skips the computing load of finding initial factors then seiving them for primality using the factors algorithm
-
-
-
-
-// After some googling, I'm once again put to shame by the elegance of JS. Code by joezack.com
-
-function find_highest_prime_factor(n) {
-    var max, i;
-    max = Math.round(Math.sqrt(n));
-    for (i = max; i >= 2; i--) {
-        if (n % i === 0 && find_highest_prime_factor(i) === 1) {
-            return i;
-        }
-    }
-    return 1; // if all else fails, return 1
-}
-
-var target = 600851475143;
-print(find_highest_prime_factor(target));
-// --> 6857

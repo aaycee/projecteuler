@@ -4,8 +4,7 @@
 
 # I have 3 possible solutions
 
-# Sol 1: brute force naive code that first computes the factors of the number
-# then seives those factors for primality
+# Sol 1: computes the factors of the number then seives those factors for primality
 
 import math
 
@@ -79,39 +78,31 @@ def getPrimeFac(number):
 # print(getPrimeFac(101)) # 101
 print(getPrimeFac(600851475143)) # 6857
 
-# Solution 3
+import math
 
-""" .js code:
-function find_highest_prime_factor(n) {
-    var max, i;
-    max = Math.round(Math.sqrt(n));
-    for (i = max; i >= 2; i--) {
-        if (n % i === 0 && find_highest_prime_factor(i) === 1) {
-            return i;
-        }
-    }
-    return 1; // if all else fails, return 1
-}
-
-var target = 600851475143;
-print(find_highest_prime_factor(target));
-
-"""
-
-def find_highest_prime_factor(n):
-    
+def primeFactors(number = 600851475143):
     """
-    largest prime factor of n (n = 600851475143)
-    
+    takes a number and returns its prime factorization
     """
+    factorSet = []
     
-    import math
-    max = int(math.sqrt(n)) # making this an integer for range sake
+    # while even ...
+    while number % 2 == 0:
+        factorSet.append(2)
+        number = number // 2
+         
+    # while odd ...
+    for i in range(3, int(math.sqrt(number))+1 , 2):
+        while number % i== 0:
+            factorSet.append(i),
+            number = number // i
+             
+    # if number remains prime > 2 after all, print it
+    if number > 2:
+        factorSet.append(number)
     
-    for i in range(max, 1, -1): # count backwards
-        if (n % i == 0) and (find_highest_prime_factor(i) == 1):
-            return i # first prime factor hit is guaranteed to be the largest
-    return 1
-
-print(find_highest_prime_factor(600851475143)) # 6857
-
+    return factorSet # returns prime factorization    
+# test
+prime_factors = primeFactors()
+print(primes_factors) # [71, 839, 1471, 6857]
+print(primes_factors[-1]) # 6857 

@@ -1,93 +1,90 @@
+# Akachukwu Obi, edited Oct 23, 2023
+# Project Euler #4 - Largest Palindrome Number
 
-# Solution 1:
+
+# Solution 1: factorization
 
 import math
 
+def getThreeDigitMultiples(number = 580085):
+    """returns 3-digit multiples of a number"""
+    factors = []
+    possibleFactor = 1
+    limit = math.sqrt(number)
+    
+    while possibleFactor <= limit:
+        if number % possibleFactor == 0: # if it is a factor
+            factors.append(possibleFactor)
+            otherPossibleFactor = number // possibleFactor
+            if otherPossibleFactor != possibleFactor:
+                factors.append(otherPossibleFactor)
+        possibleFactor += 1
+        
+    threeDigitMultiples = []
+    for i in factors:
+        if len(str(i)) == 3 & len(str(number // i)) == 3:
+            threeDigitMultiples.append(i)
+    
+    return sorted(threeDigitMultiples) # sorts the set 
+# print(getThreeDigitMultiples()) # [583, 995]
 
-def getThreeDigitFactors(number):
-	factors = []
-	threeDigitFactors = []
-	possibleFactor = 1
-	sqrt = math.sqrt(number)
-	while possibleFactor <= sqrt:
-		if number % possibleFactor == 0:
-			factors.append(possibleFactor)
-
-			otherPossibleFactor = number / possibleFactor
-			if (otherPossibleFactor != possibleFactor) and len(str(otherPossibleFactor)) == 3:
-				factors.append(otherPossibleFactor)
-
-		possibleFactor += 1
-
-	for i in range(0, len(factors)):
-		if len(str(factors[i])) == 3:
-			threeDigitFactors.append(factors[i])
-
-	return threeDigitFactors
-# test
-# print(getThreeDigitFactors(10000)) # [625, 500, 400, 250, 200, 125, 100]
-# I need to figure out python's sorting algorithm
-
-def checkThreeDigitMultiple(number):
-	checkSet = getThreeDigitFactors(number)
-	returnSet = []
-	for i in range(0, len(checkSet)):
-		for j in range(0, len(checkSet)):
-			if checkSet[i] * checkSet[j] == number:
-				returnSet.append(str(checkSet[i]) + " * " + str(checkSet[j]))
-				# had to convert the numbers to strings so that the concatenation works
-
-	return returnSet
-# test
-# print(checkThreeDigitMultiple(20000)) # ['100 * 200', '200 * 100', '125 * 160', '160 * 125']
-# has duplicates but I don't care for now
+def isPalindrome(number):
+    """returns true if number reads the same forwards and backwards"""
+    num_str = str(number) # converts number to string
+    return num_str == num_str[::-1]
 
 def checkPalindromeMultiple():
-	palindromeSet = []
-	for i in range(998001, 100000, -1):
-		string = str(i)
-		if (string[0] == string[-1]) and (string[1] == string[-2]):
-			if (len(string) % 2 != 0) or (string[2] == string[3]):
-				palindromeSet.append(i)
-
-	for j in range(0, len(palindromeSet)):
-		if len(checkThreeDigitMultiple(palindromeSet[j])) != 0:
-			return palindromeSet[j]
-# test
-# print(checkPalindromeMultiple()) # 906609; took about 0.8s
-
-
-# some other version of solution 1
-def getLargePalindromeMultiple():
-	max = 0
-	for i in range(999, 99, -1):
-		for j in range (999, 99, -1):
-			multiple = i * j
-			string = str(multiple)
-			if (string[0] == string[-1]) and (string[1] == string[-2]) and (string[2] == string[3]):
-				if multiple > max: 
-					max = multiple
-					factor1 = i
-					factor2 = j
-
-	# return max
-	return str(max) + " = " + str(factor1) + " * " + str(factor2)
-# test
-print(getLargePalindromeMultiple()) # 906609; finished in about 0.6 s
+    """returns largest palindrome number with two 3-digit multiples"""
+    for i in range(998001, 10000, -1):
+        if isPalindrome(i) and len(getThreeDigitMultiples(i)) != 0:
+            return i
+        
+print(checkPalindromeMultiple()) #906609
+# took 0.015s runtime
 
 
 # Solution 2: using python's string reverse check 
 
-def getLargePalindrome():
-	max = 0
-	for i in range(999, 99, -1):
-		for j in range (999, 99, -1):
-			multiple = i * j
-			string = str(multiple)
-			if (string[::-1] == string) and multiple > max: # [::-1] is a neat string slicing trick that produces a reversed copy
-				max = multiple
+def isPalindrome(number):
+    """returns true if number reads the same forwards and backwards"""
+    num_str = str(number) # converts number to string
+    return num_str == num_str[::-1]
 
-	return max
-# test
-# print(getLargePalindrome()) # 906609; finished in about 0.9 s
+def largestPalindromeProduct():
+    """find largest palindrome product of two 3-digit numbers"""
+    max_product = 0
+    for i in range(999, 99, -1): # count backwards
+        for j in range(i, 99, -1): # starting j from i avoids duplicates
+            product = i * j
+            if product <= max_product:
+                break # leave inner loop once we find max value
+            if isPalindrome(product):
+                max_product = product # update max value
+    return max_product
 
+print(largestPalindromeProduct()) # 906609
+# took 0.00075 s
+
+# Solution 2 updated for divisibility by 11
+def isPalindrome(number):
+    """returns true if number reads the same forwards and backwards"""
+    num_str = str(number) # converts number to string
+    return num_str == num_str[::-1]
+
+def largestPalindromeProduct():
+    """find largest palindrome product of two 3-digit numbers
+        every even-digited palindrome is divisible by 11 """
+    max_product = 0
+    for i in range(999, 99, -1): # count backwards
+        if i % 11 != 0: # focus initial values on multiples of 11
+            continue
+        for j in range(999, i-1, -1): 
+            product = i * j
+            if product <= max_product:
+                break # leave inner loop once we find max value
+            if isPalindrome(product):
+                max_product = product # update max value
+    return max_product
+
+print(largestPalindromeProduct()) # 906609
+# took 7.32e-05 s
