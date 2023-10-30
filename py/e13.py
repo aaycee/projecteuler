@@ -2,9 +2,8 @@
 # Project Euler #3
 # solved July 22, 2018
 
-def first_n_digits_of_sum(n):
+def firstNdigitsOfSum(n=10):
 	""" find first n digits of large sum"""
-
 	numbers = [37107287533902102798797998220837590246510135740250,
 				46376937677490009712648124896970078050417018260538,
                 74324986199524741059474233309513058123726617309629,
@@ -108,7 +107,21 @@ def first_n_digits_of_sum(n):
 
 	result = sum(numbers) # in-built function sum, sums numbers in an array
 	result = str(result)[:n] # convert result to str and take first n digits
-
 	return result
+print(firstNdigitsOfSum()) # 5537376230
 
-print(first_n_digits_of_sum(10)) # 5537376230
+def sumNumbersInFile(file_path='e13numbers.txt', n=10):
+    """ open a file, sum numbers in the file, return first n digits"""
+    try:
+        with open(file_path, 'r') as file: # open file as read only
+            numbers = [float(line.strip()) for line in file.readlines()]
+            total = sum(numbers)
+            firstNdigits = str(int(total))[:n]
+            return firstNdigits
+    except FileNotFoundError:
+        return "File not found."
+    except ValueError:
+        return "Invalid data in the file."
+print(sumNumbersInFile()) # 5537376230
+print(sumNumbersInFile('e13numbers.txt', 52))
+#5537376230390876637302048746832985971773659831892672
