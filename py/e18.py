@@ -18,7 +18,7 @@ number in the triangle, which will then be the maximum sum.
 import time
  
 # define a recursive function to create partial sums by row
-def recSumAtRow(rowData, rowNum):
+def SumAtRow(rowData, rowNum):
     # iterate over the given row
     for i in range(len(rowData[rowNum])):
         # add the largest of the values below-left or below-right
@@ -26,21 +26,21 @@ def recSumAtRow(rowData, rowNum):
     # base case
     if len(rowData[rowNum])==1: return rowData[rowNum][0]
     # recursive case
-    else: return recSumAtRow(rowData, rowNum-1)
+    else: return SumAtRow(rowData, rowNum-1)
  
 # read in the data
 rows = []
 with open('e18triangle.txt') as f:
     for line in f:
         rows.append([int(i) for i in line.rstrip('\n').split(" ")])
+print(rows)
  
  
 start = time.time()
-result = recSumAtRow(rows, len(rows)-2) # start at second to last row
+result = SumAtRow(rows, len(rows)-2) # start at second to last row
 elapsed = time.time() - start
  
- 
-print "%s found in %s seconds" % (result ,elapsed)
+print("%s found in %s seconds" %(result ,elapsed))
 
 # we could use this same method to solve e67
 
