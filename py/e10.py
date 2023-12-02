@@ -1,72 +1,57 @@
 # Akachukwu Obi, 2018
 # Project Euler #10
 
-# Solution 1: check for primes then sum them
+# all variations of the Sieve of Eratosthenes
 
-import math
+def sieveEratosthenes(limit = 2000000):
+    """ finds prime numbers below some limit"""
+    is_prime = [True] * (limit + 1) # initialize boolean list to True
+    is_prime[0] = is_prime[1] = False  # 0 and 1 are not prime
+    p = 2 # start counter at 2
+    while p * p <= limit:
+        if is_prime[p]: # If is_prime[p] is still True
+            for i in range(p * p, limit + 1, p): # multiples of p
+                is_prime[i] = False # are not prims
+        p += 1 # increment counter 
+    primes = [p for p in range(2, limit + 1) if is_prime[p]] # curate primes
+    return primes
 
-# check for primes
-def isPrime(n):
-	if n == 1:
-		return False
-	elif n < 4:
-		return True # 2 and 3 are prime
-	elif (n % 2 == 0) or (n % 3 == 0): # a single '|' or 'or' could represent 'or'
-		return False
-	elif n < 9: # just applies to 7 at this point
-		return True
-	else:
-		f = 5
-		r = math.floor(math.sqrt(n))
-		while f <= r:
-			if (n % f == 0) or (n % (f + 2) == 0):
-				return False
-			f += 6 # all primes greater than 3 are in the form of 6k +/- 1 where k is an integer
-
-		return True # if there is no prime factor less than sqrt(n), then n must be prime
-
-# sum the primes, calls isPrime
-def sumPrimes(limit):
-	primeSet = [2]
-	sums = primeSet[0]
-	for count in range(1, limit, 2): # sum primes less than some limit
-		if (isPrime(count)):
-			primeSet.append(count)
-			sums += count
-
-	return sums
-
-# test
-# print(sumPrimes(2000000)) # 142913828922; took 9.9s
+print(sum(sieveEratosthenes())) # 142913828922, takes 0.105 s
 
 
-# Solution 2: Sieve of Eratosthenes
-def sumPrimesLessThan(limit):
-	halfLimit = (limit - 1) // 2 # // is used to ensure floor
-	a = []; # initialize set to hold numbers
+def primesLessThan(limit = 2000000):
+    """ sums prime numbers less than some limit """
+    halfLimit = (limit-1) // 2 # 
+    a = [True]*halfLimit # initialize boolean
+    divisorLimit = int(limit**0.5) // 2
+    for i in range(divisorLimit):
+        if a[i]: # if True
+            p = 2*i + 3 # initial prime 2i + 3
+            j = i + p # a[j] is composite; i + 2i + 3 = 3(i + 1)
+            while j < halfLimit: # mark False
+                a[j] = False
+                j += p # multiples of p
+    primes = [2]
+    primes += [2*i + 3 for i in range(halfLimit) if a[i]]
+    return primes
 
-	for i in range(0, halfLimit): # create a set up to halfLimit and
-		a.append(True) # initialize all its members to True
+print(sum(primesLessThan())) # 142913828922; took 0.0511 s
 
-	sqrt = int(math.sqrt(limit))
-	for i in range(0, sqrt):
-		if a[i]: # all a[i] are already true
-			j = 2 * i + 3 # all primes can be represented as 2k + 3 (though not for all integer k)
-			k = i + j # k is a multiple of 3; i + 2i + 3 = 3(i + 1)
-			while k < halfLimit:
-				a[k] = False
-				k += j
 
-	primeSum = 2
-	for i in range(0, halfLimit):
-		if a[i]:
-			primeSum += 2 * i + 3
-
-	return primeSum
-
-# test
-print(sumPrimesLessThan(2000000)) # 142913828922; took 0.6s
-# this is certainly not Sieve of Eras, and I don't yet completely understand the code myself
+def primesSieve(limit = 2000000):
+    """ finds prime numbers below some limit """
+    sievebound = (limit) // 2 
+    sieve = [False] * (sievebound) # initialize Boolean array to False
+    divisorLimit = int(limit**0.5) // 2 
+    for i in range(1, divisorLimit + 1):
+        if not sieve[i]:
+            p = 2*i + 1 # initial prime
+            for j in range(i*(p+1), sievebound, p): # mark multiples of p
+                sieve[j] = True
+    primes = [2]  # 2 is prime
+    primes += [2*i + 1 for i in range(1, sievebound) if not sieve[i]]
+    return primes
+print(sum(primesSieve())) # 142913828922, takes approx 0.0445 s
 
 
 

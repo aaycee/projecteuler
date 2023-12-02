@@ -30,9 +30,28 @@ def findAmicableNumbers(limit = 1000):
         if b > a and sumOfDivisors(b) == a:
             amicable_numbers.add(a)
             amicable_numbers.add(b)
-    return sorted(amicable_numbers) # returns list
+    return sum(amicable_numbers)
 
-print(findAmicableNumbers(10000)) 
-# [220, 284, 1184, 1210, 2620, 2924, 5020, 5564, 6232, 6368]
-print(sum(findAmicableNumbers(10000))) # 31626, approx 0.020s runtime
+print(findAmicableNumbers(10000)) # 31626, approx 0.020s runtime
 
+# alternative, condensed version
+def getDivisorsForRange(limit=1000):
+    """ gets divisors for a range of numbers """
+    divisorsSum = {}
+    for num in range(2, limit + 1):
+        divisors = [i for i in range(1, int(num**0.5) + 1) if num % i == 0]
+        divisors += [num // i for i in divisors if i != num // i]
+        divisorsSum[num] = sum(divisors) - num
+    return divisorsSum
+
+def findAmicableNumbersfromSet(limit=1000):
+    """ finds sum of amicable numbers less than some limit"""
+    amicableNumbers = set()
+    divisorsSum = getDivisorsForRange(limit)
+    for number, item in divisorsSum.items():
+        if number < item < limit and number == divisorsSum[item]:
+            amicableNumbers.add(number)
+            amicableNumbers.add(item)
+    return sum(amicableNumbers)
+
+print(findAmicableNumbersfromSet(10000)) # 31626, 0.020 s runtime

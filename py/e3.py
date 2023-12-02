@@ -43,24 +43,29 @@ print(getPrimeFactors(600851475143)) # 6857
 
 # Solution 2: using a different primality test
 
-def isPrime(n):
-	if n == 1:
-		return False
-	elif n < 4:
-		return True # 2 and 3 are prime
-	elif (n % 2 == 0) or (n % 3 == 0): # a single '|' or 'or' could represent 'or'
-		return False
-	elif n < 9: # just applies to 7 at this point
-		return True
-	else:
-		f = 5
-		r = math.floor(math.sqrt(n))
-		while f <= r:
-			if (n % f == 0) or (n % (f + 2) == 0):
-				return False
-			f += 6 # all primes greater than 3 are in the form of 6k +/- 1 where k is an integer
-
-		return True # if there is no prime factor less than sqrt(n), then n must be prime
+def isPrime(number = 6857):
+    """ all primes greater than 3 are in the form of 6k +/- 1 
+            where k is an integer """
+    if number == 1:
+        return False
+    elif number < 4:
+        return True # 2 and 3 are prime
+    elif (number % 2 == 0) or (number % 3 == 0):
+        return False
+    elif number < 9: # just applies to 7 at this point
+        return True
+    else:
+        factor = 5
+        limit = int(number**0.5)
+        while factor <= limit:
+            if (number % factor == 0) or (number % (factor + 2) == 0):
+                return False
+            factor += 6
+        return True # if no prime factor, n must be prime
+        
+# print(isPrime()) #True
+# print(isPrime(2034921903459349123912734492132394813839123491293)) # False
+print(isPrime(67280421310721)) # True
 
 def getPrimeFac(number):
 	a = getFactors(number)
