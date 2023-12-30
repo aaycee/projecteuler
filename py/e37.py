@@ -1,10 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec  4 21:53:02 2023
-
-@author: ac
-"""
+# Akachukwu Obi
+# Project Euler #37
+# Solved Dec 4 2023
 
 def truncateLeft(number):
     """ remove digits to the left of a number """
